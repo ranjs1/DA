@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description>This Scenario tests Investment When SVP Approval is Not Needed(When Investment Value is less than 100K Dollars)</description>
+   <name>Investment_Less_Than_100k</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>4be2a607-2459-4d9f-9803-a5530c4d0c78</testCaseGuid>
+   <variable>
+      <defaultValue>''</defaultValue>
+      <description></description>
+      <id>f48f1fdc-5626-4549-a610-8289b18da07a</id>
+      <masked>false</masked>
+      <name>investmentWOStatus</name>
+   </variable>
+</TestCaseEntity>
