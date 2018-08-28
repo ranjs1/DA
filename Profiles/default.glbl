@@ -6,12 +6,12 @@
    <defaultProfile>true</defaultProfile>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>4</initValue>
+      <initValue>2</initValue>
       <name>delay</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'ECR-23Aug2018-5'</initValue>
+      <initValue>''</initValue>
       <name>WOID</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
