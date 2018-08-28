@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>TC_CreateBEP_All_Recall</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>bc09522c-cd39-4f3d-9d7e-6a67b132bfe4</testCaseGuid>
+</TestCaseEntity>

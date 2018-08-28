@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>TC_RLMeetingRequest_CancelMeeting</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>f1c3988e-5ac7-4fa0-bdcf-1959032808ef</testCaseGuid>
+</TestCaseEntity>

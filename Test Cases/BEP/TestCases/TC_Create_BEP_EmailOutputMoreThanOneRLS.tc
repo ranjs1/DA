@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>TC_Create_BEP_EmailOutputMoreThanOneRLS</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>57f5c2a3-12aa-444b-836d-4dda7eb84835</testCaseGuid>
+</TestCaseEntity>

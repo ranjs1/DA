@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>All_Approval_Reject</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>4688cd47-7fb9-4b12-9f71-ece8b0486a0b</testCaseGuid>
+   <variable>
+      <defaultValue>GlobalVariable.RD</defaultValue>
+      <description></description>
+      <id>a3912e5a-b6a7-4e63-b883-ceee6afe491d</id>
+      <masked>false</masked>
+      <name>RD</name>
+   </variable>
+   <variable>
+      <defaultValue>GlobalVariable.PL</defaultValue>
+      <description></description>
+      <id>b15072a9-8730-412d-976c-1d7791ab3c58</id>
+      <masked>false</masked>
+      <name>PL</name>
+   </variable>
+   <variable>
+      <defaultValue>GlobalVariable.RL</defaultValue>
+      <description></description>
+      <id>387d4093-c94d-4b14-9af1-bf8f5c6c4d81</id>
+      <masked>false</masked>
+      <name>RL</name>
+   </variable>
+   <variable>
+      <defaultValue>GlobalVariable.OPS</defaultValue>
+      <description></description>
+      <id>6173fd40-3205-4891-9973-783fdd3c6431</id>
+      <masked>false</masked>
+      <name>OPS</name>
+   </variable>
+</TestCaseEntity>

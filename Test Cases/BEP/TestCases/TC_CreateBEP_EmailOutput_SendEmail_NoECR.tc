@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>TC_CreateBEP_EmailOutput_SendEmail_NoECR</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>4de09126-634e-483b-a6d6-2f9da3dc1365</testCaseGuid>
+</TestCaseEntity>
