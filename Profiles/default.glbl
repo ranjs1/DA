@@ -6,12 +6,12 @@
    <defaultProfile>true</defaultProfile>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>2</initValue>
+      <initValue>0</initValue>
       <name>delay</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>''</initValue>
+      <initValue>'ESU-08Aug2018-117'</initValue>
       <name>WOID</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
@@ -193,5 +193,30 @@
       <description></description>
       <initValue>false</initValue>
       <name>referencesize</name>
+   </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>false</initValue>
+      <name>Skip</name>
+   </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>''</initValue>
+      <name>PracticeLeader</name>
+   </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>''</initValue>
+      <name>EngagementLeader</name>
+   </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>false</initValue>
+      <name>PSR</name>
+   </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description></description>
+      <initValue>'Data Files/ESU/ESU_PSR.xlsx'</initValue>
+      <name>PSRFile</name>
    </GlobalVariableEntity>
 </GlobalVariableEntities>

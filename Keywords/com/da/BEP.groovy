@@ -86,8 +86,7 @@ public class BEP {
 			String Output,
 			String TestCaseNo,
 			String TestDataFile,
-			Boolean DataDriven)
-	{
+			Boolean DataDriven) {
 		Filelocation=System.getProperty("user.dir")+Filelocation
 		TestDataFile=System.getProperty("user.dir")+TestDataFile
 		WebUI.maximizeWindow()
@@ -110,20 +109,17 @@ public class BEP {
 		WebUI.sendKeys(findTestObject('Generic/ACC'), Keys.chord(Keys.TAB))
 		WebUI.delay(5)
 
-		if(WebUI.verifyTextPresent("The engagement you entered doesn't match", false, FailureHandling.OPTIONAL))
-		{
+		if(WebUI.verifyTextPresent("The engagement you entered doesn't match", false, FailureHandling.OPTIONAL)) {
 			EngInfo(PL,PLTL,RD,RL)
 			ValueEst()
 		}
-		else
-		{
+		else {
 			println 'It is existing engagement'
 			WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'), 2)
 			WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
 			WebUI.delay(5)
 			WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'), 2)
 			WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
-
 		}
 		OutputType(Output)
 		CUTILS.woid()
@@ -135,10 +131,8 @@ public class BEP {
 	def EngInfo(String PL,String PLTL, String RD, String RL){
 		WebUI.setText(findTestObject('Generic/ENG_DESC'), 'AUTOTEST1')
 		WebUI.delay(5)
-		if(GlobalVariable.morethanOneRLS==true)
-		{
+		if(GlobalVariable.morethanOneRLS==true) {
 			CUTILS.clickUsingJS(findTestObject('BEP/Generic/MorethanOneRLSYES'),20)
-
 		}
 		else
 			CUTILS.clickUsingJS(findTestObject('BEP/Generic/MorethanOneRLSNO'),20)
@@ -161,10 +155,10 @@ public class BEP {
 
 		WebUI.selectOptionByValue(findTestObject('ECR/EngInfo/PL'), PL, false)
 		WebUI.delay(5)
-		if(WebUI.verifyTextPresent("PL Team Leader", false, FailureHandling.OPTIONAL))
-		{
+		if(WebUI.verifyTextPresent("PL Team Leader", false, FailureHandling.OPTIONAL)) {
 			WebUI.selectOptionByValue(findTestObject('ECR/EngInfo/PLTL'),PLTL,false)
-			WebUI.delay(5)	}
+			WebUI.delay(5)
+		}
 		else
 			WebUI.delay(5)
 		WebUI.selectOptionByValue(findTestObject('ECR/EngInfo/RD'),RD,false)
@@ -175,19 +169,12 @@ public class BEP {
 		WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
 		WebUI.delay(5)
 		WebUI.waitForPageLoad(20)
-
-
-
-
 	}
 	@Keyword
 
-	def ValueEst()
-	{
-		for(int i=0;i<2;i++)
-		{
-			try
-			{
+	def ValueEst() {
+		for(int i=0;i<2;i++) {
+			try {
 				WebUI.delay(2)
 				WebUI.clearText(findTestObject('BEP/Generic/DurationLow'))
 				WebUI.delay(2)
@@ -212,8 +199,7 @@ public class BEP {
 			}
 		}
 
-		if (GlobalVariable.morethanOneRLS==true)
-		{
+		if (GlobalVariable.morethanOneRLS==true) {
 			WebUI.clearText(findTestObject('BEP/Generic/Phase1StartDate'))
 			WebUI.delay(2)
 			WebUI.setText(findTestObject('BEP/Generic/Phase1StartDate'), CUTILS.MeetingDT())
@@ -229,7 +215,6 @@ public class BEP {
 		WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'), 2)
 		WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
 		WebUI.delay(5)
-
 	}
 
 
@@ -238,12 +223,8 @@ public class BEP {
 
 	@Keyword
 
-	def OutputType(String Output)
-
-	{
-		if(Output=='email')
-
-		{
+	def OutputType(String Output) {
+		if(Output=='email') {
 			WebUI.click(findTestObject('BEP/Generic/BEPOutputEmail'))
 			WebUI.delay(2)
 			WebUI.click(findTestObject('BEP/Generic/RECEIPIENT'))
@@ -258,8 +239,7 @@ public class BEP {
 			WebUI.setText(findTestObject('BEP/Generic/BEP_CASENOTES'), GlobalVariable.LongNotes)
 			WebUI.delay(5)
 		}
-		else
-		{
+		else {
 			WebUI.click(findTestObject('BEP/Generic/BEPoutput'))
 			WebUI.delay(5)
 			WebUI.selectOptionByValue(findTestObject('BEP/Generic/ReasonCode'), 'RFP in process', false)
@@ -279,8 +259,7 @@ public class BEP {
 
 
 	@Keyword
-	def RDapprove()
-	{
+	def RDapprove() {
 		WebUI.delay(5)
 		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 2)
 		CUTILS.begin()
@@ -298,11 +277,9 @@ public class BEP {
 		CUTILS.clickUsingJS(findTestObject('BEP/Generic/FINISH_ASSIGNMENT'), 2)
 
 		WebUI.waitForPageLoad(20)
-
 	}
 	@Keyword
-	def noToRL()
-	{
+	def noToRL() {
 		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 2)
 		CUTILS.begin()
 		WebUI.delay(5)
@@ -322,8 +299,7 @@ public class BEP {
 		WebUI.waitForPageLoad(20)
 	}
 	@Keyword
-	def RDReject()
-	{
+	def RDReject() {
 		WebUI.delay(5)
 		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 2)
 		CUTILS.begin()
@@ -348,8 +324,7 @@ public class BEP {
 		WebUI.delay(3)
 		GlobalVariable.AssignmentList = WebUI.findWebElements(findTestObject('Object Repository/Generic/begin'), 10)
 		println GlobalVariable.AssignmentList.size()
-		if(GlobalVariable.AssignmentList.size()>1)
-		{
+		if(GlobalVariable.AssignmentList.size()>1) {
 
 			GlobalVariable.AssignmentList[1].click()
 			WebUI.waitForPageLoad(20)
@@ -369,8 +344,7 @@ public class BEP {
 		WebUI.waitForPageLoad(10)
 	}
 	@Keyword
-	def RLapprove()
-	{
+	def RLapprove() {
 		WebUI.delay(5)
 		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 2)
 
@@ -380,8 +354,7 @@ public class BEP {
 		WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'), 2)
 		WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
 		WebUI.delay(5)
-		if (GlobalVariable.Meeting==true)
-		{
+		if (GlobalVariable.Meeting==true) {
 			WebUI.scrollToElement(findTestObject('BEP/Generic/RD_RLApprove'),0)
 			WebUI.verifyTextPresent('A meeting for this estimate has been requested/scheduled', false)
 			WebUI.delay(5)
@@ -400,18 +373,15 @@ public class BEP {
 	}
 
 	@Keyword
-	def ScheduleMeeting()
-	{
+	def ScheduleMeeting() {
 		WebUI.delay(5)
 		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 2)
 
 		GlobalVariable.AssignmentList = WebUI.findWebElements(findTestObject('Object Repository/Generic/begin'), 10)
 
 
-		if(GlobalVariable.AssignmentList[0].isEnabled())
-		{
+		if(GlobalVariable.AssignmentList[0].isEnabled()) {
 			GlobalVariable.AssignmentList[0].click()
-
 		}
 		else
 			GlobalVariable.AssignmentList[1].click()
@@ -428,20 +398,16 @@ public class BEP {
 	}
 
 	@Keyword
-	def Cancelmeeting()
-
-	{
+	def Cancelmeeting() {
 		WebUI.delay(5)
 		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 2)
 		GlobalVariable.AssignmentList = WebUI.findWebElements(findTestObject('Object Repository/Generic/begin'), 10)
-		if(GlobalVariable.AssignmentList[0].isEnabled())
-		{
+		if(GlobalVariable.AssignmentList[0].isEnabled()) {
 			GlobalVariable.AssignmentList[0].click()
 		}
 
 
-		else if(GlobalVariable.AssignmentList[1].isEnabled())
-		{
+		else if(GlobalVariable.AssignmentList[1].isEnabled()) {
 			GlobalVariable.AssignmentList[1].click()
 		}
 
@@ -541,8 +507,6 @@ public class BEP {
 		WebUI.scrollToElement(findTestObject('BEP/Generic/FINISH_ASSIGNMENT'),0)
 		CUTILS.clickUsingJS(findTestObject('BEP/Generic/FINISH_ASSIGNMENT'), 2)
 		WebUI.delay(5)
-
-
 	}
 
 	@Keyword
@@ -566,8 +530,7 @@ public class BEP {
 
 	@Keyword
 	def EmailCustomer(){
-		if (GlobalVariable.CreateECR==true)
-		{
+		if (GlobalVariable.CreateECR==true) {
 			WebUI.delay(5)
 			WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 2)
 			CUTILS.begin()
@@ -599,8 +562,7 @@ public class BEP {
 	}
 	@Keyword
 	def SkipEmail(){
-		if (GlobalVariable.CreateECR==true)
-		{
+		if (GlobalVariable.CreateECR==true) {
 			WebUI.delay(5)
 			WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 2)
 			CUTILS.begin()
@@ -619,8 +581,7 @@ public class BEP {
 			WebUI.click(findTestObject('BEP/Generic/Modal_OK'))
 			WebUI.delay(5)
 		}
-		else
-		{
+		else {
 			WebUI.delay(5)
 			WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 2)
 			CUTILS.begin()
@@ -662,7 +623,6 @@ public class BEP {
 		WebUI.scrollToElement(findTestObject('BEP/Generic/FINISH_ASSIGNMENT'),0)
 		CUTILS.clickUsingJS(findTestObject('BEP/Generic/FINISH_ASSIGNMENT'), 2)
 		WebUI.delay(5)
-
 	}
 
 
@@ -681,9 +641,4 @@ public class BEP {
 		WebUI.delay(5)
 		WebUI.click(findTestObject('Generic/CLOSE_WORK_OBJECT'))
 	}
-
-
-
-
-
 } /* End of the Program*/

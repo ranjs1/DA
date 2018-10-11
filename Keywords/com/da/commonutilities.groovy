@@ -124,7 +124,7 @@ public class commonutilities {
 	}
 
 	@Keyword
-	def searchStatus(){
+	def static searchStatus(){
 		WebUI.waitForPageLoad(10)
 		int attempts = 0;
 		/*

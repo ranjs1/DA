@@ -18,4 +18,46 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
+import com.da.commonutilities as CUTILS
+
+CustomKeywords.'com.da.commonutilities.login'(EL)
+
+CustomKeywords.'com.da.commonutilities.search'()
+
+WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
+
+CustomKeywords.'com.da.commonutilities.searchStatus'()
+
+/*GlobalVariable.WOSTATUS = 'Pending-EL'
+println GlobalVariable.WOSTATUS
+
+GlobalVariable.WOID = 'ESU-08Aug2018-10'
+
+GlobalVariable.Status = 'Pending-EL'
+println GlobalVariable.Status */
+
+while (GlobalVariable.WOSTATUS.contains('PENDING') && (GlobalVariable.AssignmentList.size() > 0)) {
+	GlobalVariable.Status = GlobalVariable.AssignmentList[0].text
+
+	println(GlobalVariable.Status)
+
+    if (GlobalVariable.Status == 'Pending-EL') {
+        CustomKeywords.'com.da.commonutilities.login'(EL)
+
+        CustomKeywords.'com.da.commonutilities.search'()
+
+        CustomKeywords.'com.da.ESU.approve'()
+		
+    } else if (GlobalVariable.Status == 'Pending-PL') {
+        CustomKeywords.'com.da.commonutilities.login'(PL)
+
+        CustomKeywords.'com.da.commonutilities.search'()
+
+        CustomKeywords.'com.da.ESU.approve'()
+    }
+    
+    CustomKeywords.'com.da.commonutilities.searchStatus'()
+
+    'The first 3 steps whcih are disabled are addded to test the test case indepently. By Default they should be disabled'
+}
 

@@ -5,4 +5,18 @@
    <tag></tag>
    <comment></comment>
    <testCaseGuid>54804a98-feaa-445d-b194-095c55aa092f</testCaseGuid>
+   <variable>
+      <defaultValue>'hendj@pegasystems.com'</defaultValue>
+      <description></description>
+      <id>37bc46cb-f2ab-4734-b5e9-5f8949ebf713</id>
+      <masked>false</masked>
+      <name>PL</name>
+   </variable>
+   <variable>
+      <defaultValue>'hendj@pegasystems.com'</defaultValue>
+      <description></description>
+      <id>84b6a250-a06b-4691-a6e8-949479cfbf35</id>
+      <masked>false</masked>
+      <name>EL</name>
+   </variable>
 </TestCaseEntity>

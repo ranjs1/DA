@@ -21,11 +21,11 @@ import internal.GlobalVariable as GlobalVariable
 import com.da.commonutilities as CUTILS
 
 'The first 3 steps whcih are disabled are addded to test the test case indepently. By Default they should be disabled'
-not_run: CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.URL, GlobalVariable.OPS, GlobalVariable.pwd)
+CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.URL, GlobalVariable.OPS, GlobalVariable.pwd)
 
-not_run: CustomKeywords.'com.da.commonutilities.search'()
+CustomKeywords.'com.da.commonutilities.search'()
 
-not_run: WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
+WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
 
 while (GlobalVariable.WOSTATUS.contains('PENDING') && (GlobalVariable.AssignmentList.size() > 0)) {
     /*   for (int j = 0; j < GlobalVariable.AssignmentList.size(); j++) {*/
