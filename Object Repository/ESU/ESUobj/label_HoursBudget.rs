@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebElementEntity>
+   <description></description>
+   <name>label_HoursBudget</name>
+   <tag></tag>
+   <elementGuidId>4f3cc857-f53c-4720-a0d4-c0112669ae2f</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//label[@for='PSDHoursToBudgetGreen'][count(. | //label[@ref_element = 'Object Repository/ESU_Obj/Frames/iframe_PegaGadget1Ifr']) = count(//label[@ref_element = 'Object Repository/ESU_Obj/Frames/iframe_PegaGadget1Ifr'])]</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
+   <useRalativeImagePath>false</useRalativeImagePath>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>tag</name>
+      <type>Main</type>
+      <value>label</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath</name>
+      <type>Main</type>
+      <value>//label[@for='PSDHoursToBudgetGreen']</value>
+   </webElementProperties>
+</WebElementEntity>

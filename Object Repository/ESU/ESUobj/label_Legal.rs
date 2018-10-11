@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebElementEntity>
+   <description></description>
+   <name>label_Legal</name>
+   <tag></tag>
+   <elementGuidId>31b80e7b-6c7a-4926-9dcf-c07b3e44bea3</elementGuidId>
+   <selectorCollection>
+      <entry>
+         <key>BASIC</key>
+         <value>//label[@for='PSDLegalYellow'][count(. | //label[@ref_element = 'Object Repository/ESU_Obj/Frames/iframe_PegaGadget1Ifr']) = count(//label[@ref_element = 'Object Repository/ESU_Obj/Frames/iframe_PegaGadget1Ifr'])]</value>
+      </entry>
+   </selectorCollection>
+   <selectorMethod>BASIC</selectorMethod>
+   <useRalativeImagePath>false</useRalativeImagePath>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>tag</name>
+      <type>Main</type>
+      <value>label</value>
+   </webElementProperties>
+   <webElementProperties>
+      <isSelected>true</isSelected>
+      <matchCondition>equals</matchCondition>
+      <name>xpath</name>
+      <type>Main</type>
+      <value>//label[@for='PSDLegalYellow']</value>
+   </webElementProperties>
+</WebElementEntity>

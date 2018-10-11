@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>TC_AllApproval</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>d9164f3c-3f4b-42d1-893e-12b11d3d4ee2</testCaseGuid>
+   <variable>
+      <defaultValue>'WELLFARGO'</defaultValue>
+      <description></description>
+      <id>2726b70c-af84-4edb-8aac-5ace15b293f5</id>
+      <masked>false</masked>
+      <name>ORG</name>
+   </variable>
+   <variable>
+      <defaultValue>'WELLFB'</defaultValue>
+      <description></description>
+      <id>510f8e88-5f8d-468e-91cf-615964e4cc12</id>
+      <masked>false</masked>
+      <name>ACC</name>
+   </variable>
+   <variable>
+      <defaultValue>'CEDARS LSA SUPPORT'</defaultValue>
+      <description></description>
+      <id>a73e524b-832d-4795-a91c-35d8fc02f945</id>
+      <masked>false</masked>
+      <name>ENG</name>
+   </variable>
+   <variable>
+      <defaultValue>'brouo@pegasystems.com'</defaultValue>
+      <description></description>
+      <id>9d1f6ae9-807b-4898-b6a5-57f69fd71235</id>
+      <masked>false</masked>
+      <name>PL</name>
+   </variable>
+   <variable>
+      <defaultValue>'brouo@pegasystems.com'</defaultValue>
+      <description></description>
+      <id>67d75625-3a03-4c1b-b921-d8e46370dab2</id>
+      <masked>false</masked>
+      <name>EL</name>
+   </variable>
+   <variable>
+      <defaultValue>GlobalVariable.OPS</defaultValue>
+      <description></description>
+      <id>33701806-0d1f-4f69-97df-6d0f0eb892dc</id>
+      <masked>false</masked>
+      <name>GSOPS</name>
+   </variable>
+   <variable>
+      <defaultValue>true</defaultValue>
+      <description></description>
+      <id>44f73c00-e51f-44a7-a272-f4dae4584eef</id>
+      <masked>false</masked>
+      <name>Datadriven</name>
+   </variable>
+</TestCaseEntity>

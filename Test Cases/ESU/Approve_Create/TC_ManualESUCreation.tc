@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCaseEntity>
+   <description></description>
+   <name>TC_ManualESUCreation</name>
+   <tag></tag>
+   <comment></comment>
+   <testCaseGuid>da0456dd-8ffa-462e-8e86-73fc6c090c16</testCaseGuid>
+   <variable>
+      <defaultValue>'WELLFARGO'</defaultValue>
+      <description></description>
+      <id>d03e5445-c816-4f37-a18a-3c9269aee3e8</id>
+      <masked>false</masked>
+      <name>ORG</name>
+   </variable>
+   <variable>
+      <defaultValue>'WELLFB'</defaultValue>
+      <description></description>
+      <id>67701d1d-50ae-462d-a738-cdc7c746840e</id>
+      <masked>false</masked>
+      <name>ACC</name>
+   </variable>
+   <variable>
+      <defaultValue>'CEDARS LSA SUPPORT'</defaultValue>
+      <description></description>
+      <id>706437f1-4c99-4a6c-9a95-3e93b99b67e7</id>
+      <masked>false</masked>
+      <name>ENG</name>
+   </variable>
+</TestCaseEntity>
