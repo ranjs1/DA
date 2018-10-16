@@ -21,10 +21,10 @@ import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
 import com.da.commonutilities as CUTILS
 
-CustomKeywords.'com.da.commonutilities.login'('hendj@pegasystems.com')
+CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.PL)
 
-CustomKeywords.'com.da.BEP.Estimate'('\\Data Files\\BEP\\Estimate.xlsm', GlobalVariable.ORG, 
-    GlobalVariable.ACC, GlobalVariable.PL, GlobalVariable.RD, GlobalVariable.RL, GlobalVariable.PLTL, 'None', '', '', false)
+CustomKeywords.'com.da.BEP.Estimate'('\\Data Files\\BEP\\Estimate.xlsm', GlobalVariable.ORG, GlobalVariable.ACC, GlobalVariable.PL, 
+    GlobalVariable.RD, GlobalVariable.RL, GlobalVariable.PLTL, 'None', '', '', false)
 
 CustomKeywords.'com.da.commonutilities.searchStatus'()
 

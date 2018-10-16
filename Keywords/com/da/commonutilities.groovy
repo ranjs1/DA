@@ -46,6 +46,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.InputStream;
+import java.lang.annotation.ElementType
 import java.util.Iterator;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -71,7 +72,21 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class commonutilities {
 	protected String Filelocation
 
+	public final static String XPATH_LABEL ='//label[contains(.,"%s")]'
 
+
+
+	@Keyword
+	def static IdentifyLabelField(String Label) {
+		String path=String.format(XPATH_LABEL , Label)
+		TestObject RadionButton = new TestObject('Generic/XPATH').addProperty('xpath', com.kms.katalon.core.testobject.ConditionType.EQUALS, path, true)
+		WebUI.click(RadionButton)
+	}
+	
+	
+	
+	
+	
 	@Keyword
 	def static clickUsingJS(TestObject to, int timeout) {
 		WebDriver driver = DriverFactory.getWebDriver()
@@ -79,14 +94,9 @@ public class commonutilities {
 		JavascriptExecutor executor = ((driver) as JavascriptExecutor)
 		executor.executeScript('arguments[0].click()', element)
 	}
-
-
-
-
-
 	@Keyword
 
-	def setprop(String Flow){
+	def static setprop(String Flow){
 
 		if (Flow =='Approve') {
 			GlobalVariable.RLReject=false
@@ -95,6 +105,7 @@ public class commonutilities {
 			GlobalVariable.RouteToRL=true
 			GlobalVariable.RDD_Reject=false
 			GlobalVariable.EXP_SVC_Reject=false
+			println Flow
 		}
 
 		else if(Flow =='Reject') {
@@ -104,6 +115,7 @@ public class commonutilities {
 			GlobalVariable.RouteToRL=true
 			GlobalVariable.RDD_Reject=true
 			GlobalVariable.EXP_SVC_Reject=true
+			println Flow
 		}
 
 		else {
@@ -112,6 +124,7 @@ public class commonutilities {
 			GlobalVariable.OpsRecall=true
 			GlobalVariable.RouteToRL=true
 			GlobalVariable.EXP_SVC_Recall=true
+			println Flow
 		}
 	}
 
@@ -126,32 +139,7 @@ public class commonutilities {
 	@Keyword
 	def searchStatus(){
 		WebUI.waitForPageLoad(10)
-		int attempts = 0;
-		/*
-		 while(attempts < 2) {
-		 try {
-		 def assignedTo = []
-		 GlobalVariable.AssignmentList = WebUI.findWebElements(findTestObject('Generic/AssignmentStatus'), 30)
-		 WebUI.delay(2)
-		 assignedTo = WebUI.findWebElements(findTestObject('Generic/AssignedTo'), 30)
-		 WebUI.delay(2)
-		 for (int i = 0; i < GlobalVariable.AssignmentList.size(); i++)
-		 {
-		 println GlobalVariable.AssignmentList[i].text
-		 println assignedTo[i].text
-		 WebUI.delay(5)
-		 break
-		 }
-		 }
-		 catch(StaleElementReferenceException) {
-		 println "attempted"
-		 println attempts
-		 }
-		 attempts++;
-		 }
-		 */
-
-		attempts = 0
+		int attempts = 0
 		def WOStatusList = []
 		while(attempts < 2) {
 			try {
@@ -179,6 +167,8 @@ public class commonutilities {
 
 			GlobalVariable.AssignmentList = WebUI.findWebElements(findTestObject('Generic/AssignmentStatus'), 30)
 			WebUI.delay(2)
+			/*for (int j = 0; j < GlobalVariable.AssignmentList.size(); j++) {*/
+			GlobalVariable.Status = GlobalVariable.AssignmentList[0].text
 			println GlobalVariable.AssignmentList[0].text
 			def assignedTo = WebUI.findWebElements(findTestObject('Generic/AssignedTo'), 30)
 			WebUI.delay(2)
@@ -189,11 +179,37 @@ public class commonutilities {
 				println GlobalVariable.EXP_SVC
 			}
 		}
+		/*	}*/
 		else
 
 			println "work object status is RESOLVED or other than PENDING"
 	}
 
+
+	@Keyword
+
+	def verofyApprovals(){
+		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
+
+		WebUI.delay(5)
+		WebUI.click(findTestObject('Generic/approvalSummary'))
+		WebUI.delay(3)
+		def name=[]
+		def title=[]
+		title=WebUI.findWebElements(findTestObject('Generic/approverTitle'), 30)
+		name=WebUI.findWebElements(findTestObject('Generic/approvalName'), 30)
+		/*def OPS=WebUI.findWebElements(findTestObject('Generic/OPSName'), 30)
+		 println  "GSOPS user is" + OPS.text*/
+
+		for (int i = 0; i < name.size(); i++) {
+			if(GlobalVariable.NameToID[name[i].text]==GlobalVariable.RD || GlobalVariable.RL || GlobalVariable.RDD|| GlobalVariable.EXP_SVC || 'smitmi@pegasystems.com') {
+				print title[i].text+"  " +"is   "
+				println name[i].text
+			}
+			else
+				println "there is no matching user in the name to ID list"
+		}
+	}
 
 	@Keyword
 	def search() {
@@ -275,7 +291,7 @@ public class commonutilities {
 	def static beginGSOPS() {
 		def BeginList = []
 		def AssignmentList =[]
-		AssignmentList= WebUI.findWebElements(findTestObject('Generic/AssignmentStatus'), 10)
+		AssignmentList= WebUI.findWebElements(findTestObject('Generic/AssignmentStatus'), 30)
 		BeginList=WebUI.findWebElements(findTestObject('Object Repository/Generic/BeginList'), 1)
 		WebUI.delay(3)
 		for (int j = 0; j < AssignmentList.size(); j++) {
@@ -304,10 +320,11 @@ public class commonutilities {
 		WebUI.setText(findTestObject('Generic/input_UserIdentifier'), username)
 		WebUI.setText(findTestObject('Generic/input_Password'), GlobalVariable.pwd)
 		WebUI.sendKeys(findTestObject('Generic/input_Password'), Keys.chord(Keys.ENTER))
+		WebUI.maximizeWindow()
 	}
 	@Keyword
 	def static  woid() {
-		WebUI.delay(5)
+		WebUI.delay(10)
 		GlobalVariable.WOID=WebUI.getText(findTestObject('Generic/WOID'))
 		print(GlobalVariable.WOID)
 	}

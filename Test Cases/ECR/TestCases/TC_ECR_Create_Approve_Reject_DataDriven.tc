@@ -1,113 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>ECR_Create_Approve_Reject</name>
+   <name>TC_ECR_Create_Approve_Reject_DataDriven</name>
    <tag></tag>
    <comment></comment>
-   <testCaseGuid>955ab05a-7039-4697-8578-5638a23f10e6</testCaseGuid>
+   <testCaseGuid>1061d518-228e-4a95-9e02-e436cf9b5bd1</testCaseGuid>
    <variable>
       <defaultValue>'ellia@pegasystems.com'</defaultValue>
       <description></description>
-      <id>55836b04-958f-4946-8a44-b9ec8755ccbe</id>
+      <id>46d0e7df-8a2c-48ce-a586-178dec7caa84</id>
       <masked>false</masked>
       <name>RD</name>
    </variable>
    <variable>
       <defaultValue>'panee@pegasystems.com'</defaultValue>
       <description></description>
-      <id>bd208e03-08e4-4cad-82f0-0e3a6496f03c</id>
+      <id>e412696c-e700-4dd9-96ad-f264208c544d</id>
       <masked>false</masked>
       <name>RL</name>
    </variable>
    <variable>
-      <defaultValue>'hendj@pegasystems.com'</defaultValue>
+      <defaultValue>'chura1@pegasystems.com'</defaultValue>
       <description></description>
-      <id>e2591cfe-fb16-4be0-b682-33ec553fd78d</id>
+      <id>48ce6e9b-edd7-425d-8264-85cb88870110</id>
       <masked>false</masked>
       <name>PL</name>
    </variable>
    <variable>
       <defaultValue>'BOFA'</defaultValue>
       <description></description>
-      <id>878ca300-a6ba-487b-b0fc-1e6a7b68ed6b</id>
+      <id>2a268018-e59f-457b-ba43-25530aba2ece</id>
       <masked>false</masked>
       <name>ORG</name>
    </variable>
    <variable>
       <defaultValue>'BOFA'</defaultValue>
       <description></description>
-      <id>7d513f15-f840-4442-b7f9-c71d5ed1097d</id>
+      <id>55c5a4e5-d09c-47f5-86c9-d35fd4c7adea</id>
       <masked>false</masked>
       <name>ACC</name>
    </variable>
    <variable>
       <defaultValue>''</defaultValue>
       <description></description>
-      <id>88cc6ad3-fe6e-49f5-a119-48183d5e668b</id>
+      <id>65d21a86-4474-4a94-ae8a-3b756f680818</id>
       <masked>false</masked>
       <name>ENG</name>
    </variable>
    <variable>
       <defaultValue>'higgr@pegasystems.com'</defaultValue>
       <description></description>
-      <id>201e6d16-e478-4256-82bf-75cc41c5b137</id>
+      <id>b3e810a0-310e-46c0-9147-26e40e745307</id>
       <masked>false</masked>
       <name>PLTL</name>
    </variable>
    <variable>
       <defaultValue>'\\Data Files\\ECR\\TestDataECR.xlsx'</defaultValue>
       <description></description>
-      <id>de4d098f-0206-4758-b001-cff83a9d2b08</id>
+      <id>19d2df1c-9c82-447f-ad97-27fcdf631244</id>
       <masked>false</masked>
       <name>TestDataFile</name>
    </variable>
    <variable>
       <defaultValue>''</defaultValue>
       <description></description>
-      <id>25e4cb10-e2cd-41cf-9aab-8ba79591e271</id>
+      <id>75bf8ef3-afd0-45cb-b188-c29bbda1eec3</id>
       <masked>false</masked>
       <name>TestCaseno</name>
    </variable>
    <variable>
-      <defaultValue>'\\Data Files\\ECR\\PCR_1.xlsm'</defaultValue>
+      <defaultValue>'\\Data Files\\ECR\\ECR_SPAPPROVAL.xlsm'</defaultValue>
       <description></description>
-      <id>6363f4ef-929b-421f-a4a4-8c0b05ad3fbd</id>
+      <id>1153b4bd-3049-440f-a6a8-617b0d9eff1f</id>
       <masked>false</masked>
       <name>FileLocation</name>
    </variable>
    <variable>
       <defaultValue>'lachd@pegasystems.com'</defaultValue>
       <description></description>
-      <id>8f51206b-74ba-42dd-9da9-75750abbee4c</id>
+      <id>ccf0101f-4842-4851-a481-0bd2a9f08a7d</id>
       <masked>false</masked>
       <name>RDD</name>
    </variable>
    <variable>
       <defaultValue>'diazz@pegasystems.com'</defaultValue>
       <description></description>
-      <id>8631cff7-5f01-4840-88b3-3b115aa90dc0</id>
+      <id>821e8b23-6492-4ac2-8252-0288beecd6ee</id>
       <masked>false</masked>
       <name>CLINIC</name>
    </variable>
    <variable>
       <defaultValue>'pogoa@pegasystems.com'</defaultValue>
       <description></description>
-      <id>2cb6b308-522c-45ce-bb64-ce41c60e1e59</id>
+      <id>8b03744d-c221-41f6-82b3-4f5df900a198</id>
       <masked>false</masked>
       <name>OPS</name>
    </variable>
    <variable>
       <defaultValue>GlobalVariable.EXP_SVC</defaultValue>
       <description></description>
-      <id>9a7fede1-b48f-4471-bb7a-0f2b34ef8ead</id>
+      <id>fa27d1bd-e714-4080-989e-dc6307ecce94</id>
       <masked>false</masked>
       <name>EXP</name>
    </variable>
    <variable>
-      <defaultValue>false</defaultValue>
+      <defaultValue>true</defaultValue>
       <description></description>
-      <id>58766cee-d248-4020-a503-5dc34d49e727</id>
+      <id>1439d652-801f-42b8-a606-cc5f08225e8c</id>
       <masked>false</masked>
       <name>DataDrive</name>
+   </variable>
+   <variable>
+      <defaultValue>'Reject'</defaultValue>
+      <description></description>
+      <id>4d293104-c181-4cb8-8646-be0f83c5fa57</id>
+      <masked>false</masked>
+      <name>Path</name>
+   </variable>
+   <variable>
+      <defaultValue>'Won'</defaultValue>
+      <description></description>
+      <id>ae39a110-e131-41d1-969d-7db780a99c7f</id>
+      <masked>false</masked>
+      <name>DispositionReason</name>
+   </variable>
+   <variable>
+      <defaultValue>'Create Contract'</defaultValue>
+      <description></description>
+      <id>4f79eda4-2b1d-4ebe-bfb1-48752cffccff</id>
+      <masked>false</masked>
+      <name>ContractOption</name>
+   </variable>
+   <variable>
+      <defaultValue>'Approved'</defaultValue>
+      <description></description>
+      <id>bef587bd-e1d8-4ec6-aff8-d22d081e5326</id>
+      <masked>false</masked>
+      <name>ClinicOutcome</name>
    </variable>
 </TestCaseEntity>

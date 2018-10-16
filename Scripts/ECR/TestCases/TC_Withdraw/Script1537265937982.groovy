@@ -19,12 +19,18 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKe
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
-import com.da.commonutilities as CUTILS
 
-CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.PL)
+not_run: WebUI.callTestCase(findTestCase('ECR/Create_Approve_Reject/ECR_Create'), [('RD') : 'ellia@pegasystems.com', ('RL') : 'panee@pegasystems.com'
+        , ('PL') : 'hendj@pegasystems.com', ('ORG') : 'BOFA', ('ACC') : 'BOFA', ('ENG') : '', ('PLTL') : 'higgr@pegasystems.com'
+        , ('TestDataFile') : '\\Data Files\\ECR\\TestDataECR.xlsx', ('TestCaseno') : '', ('FileLocation') : '\\Data Files\\ECR\\ECR_LITE_CASETYPE_YES.xlsm'
+        , ('RDD') : 'lachd@pegasystems.com', ('CLINIC') : 'diazz@pegasystems.com', ('OPS') : 'pogoa@pegasystems.com', ('EXP') : GlobalVariable.EXP_SVC
+        , ('DataDrive') : false], FailureHandling.STOP_ON_FAILURE)
 
-CustomKeywords.'com.da.BEP.Estimate'('\\Data Files\\BEP\\Estimate.xlsm', GlobalVariable.ORG, GlobalVariable.ACC, GlobalVariable.PL, 
-    GlobalVariable.RD, GlobalVariable.RL, GlobalVariable.PLTL, 'email', '', '', false)
+CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.OPS)
 
-not_run: CustomKeywords.'com.da.commonutilities.searchStatus'()
+not_run: GlobalVariable.WOID = 'ECR-12Sep2018-6'
+
+CustomKeywords.'com.da.commonutilities.search'()
+
+CustomKeywords.'com.da.BEP.withdraw'()
 

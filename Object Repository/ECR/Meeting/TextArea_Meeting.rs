@@ -7,7 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value></value>
+         <value>//textarea[contains(@data-test-id,'2016120204495404119583') or contains(@data-test-id,'20161202044939039137413')]</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -17,6 +17,6 @@
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>//textarea[@data-test-id='2016120204495404119583']</value>
+      <value>//textarea[contains(@data-test-id,'2016120204495404119583') or contains(@data-test-id,'20161202044939039137413')]</value>
    </webElementProperties>
 </WebElementEntity>

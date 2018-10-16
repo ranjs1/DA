@@ -7,7 +7,7 @@
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//button[@data-test-id='2017030903153107252958']</value>
+         <value>//*[@data-test-id = '2015022606434705791895']</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -15,8 +15,8 @@
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
-      <name>xpath</name>
+      <name>data-test-id</name>
       <type>Main</type>
-      <value>//button[@data-test-id='2017030903153107252958']</value>
+      <value>2015022606434705791895</value>
    </webElementProperties>
 </WebElementEntity>

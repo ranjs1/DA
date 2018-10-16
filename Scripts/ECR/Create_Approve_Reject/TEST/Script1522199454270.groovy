@@ -25,225 +25,202 @@ import org.openqa.selenium.firefox.FirefoxDriver as FirefoxDriver
 import org.openqa.selenium.support.ui.ExpectedCondition as ExpectedCondition
 import org.openqa.selenium.support.ui.WebDriverWait as WebDriverWait
 
-CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.OPS)
+CustomKeywords.'com.da.commonutilities.login'('ellia@pegasystems.com')
 
 CustomKeywords.'com.da.commonutilities.search'()
 
-WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
+not_run: WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
 
-GlobalVariable.referencesize = true
+not_run: GlobalVariable.referencesize = true
 
-println(GlobalVariable.referencesize)
+not_run: println(GlobalVariable.referencesize)
 
-CustomKeywords.'com.da.commonutilities.searchStatus'()
+not_run: CustomKeywords.'com.da.commonutilities.searchStatus'()
 
-CustomKeywords.'com.da.commonutilities.AttachCaseTypeDoc'()
+not_run: while (GlobalVariable.WOSTATUS.contains('PENDING') && (GlobalVariable.AssignmentList.size() > 0)) {
+    /*	for (int j = 0; j < GlobalVariable.AssignmentList.size(); j++) {*/
+    GlobalVariable.Status = GlobalVariable.AssignmentList[0].text
 
-not_run: while (GlobalVariable.WOSTATUS.contains('PENDING')) {
-    not_run: for (int j = 0; j < GlobalVariable.AssignmentList.size(); j++) {
-        GlobalVariable.Status = GlobalVariable.AssignmentList[j].text
+    println(GlobalVariable.Status)
 
-        println(GlobalVariable.Status)
+    /*
+		CustomKeywords.'com.da.commonutilities.searchStatus'()
+		
+		int k=0
+		while(GlobalVariable.AssignmentList[k].text!=GlobalVariable.Status)
+		k++
+		GlobalVariable.Status=GlobalVariable.AssignmentList[k].text*/
+    if (GlobalVariable.Status == 'Pending-RDApproval') {
+        if (GlobalVariable.RDReject == false) {
+            if (GlobalVariable.Meeting == true) {
+                CustomKeywords.'com.da.commonutilities.login'(RD)
 
-        if (GlobalVariable.Status == 'Pending-RDApproval') {
-            if (GlobalVariable.RDReject == false) {
-                if (GlobalVariable.Meeting == true) {
-                    CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.URL, GlobalVariable.RD, 
-                        GlobalVariable.pwd)
+                CustomKeywords.'com.da.commonutilities.search'()
 
-                    CustomKeywords.'com.da.commonutilities.search'()
-
-                    CustomKeywords.'com.da.commonutilities.routeToRL'()
-
-                    print(GlobalVariable.Status)
-
-                    CustomKeywords.'com.da.commonutilities.searchStatus'()
-                } else {
-                    CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.URL, GlobalVariable.RD, 
-                        GlobalVariable.pwd)
-
-                    CustomKeywords.'com.da.commonutilities.search'()
-
-                    CustomKeywords.'com.da.commonutilities.approve'()
-
-                    CustomKeywords.'com.da.commonutilities.searchStatus'()
-                }
+                CustomKeywords.'com.da.ECR.routeToRL'()
             } else {
-                CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.URL, GlobalVariable.RD, GlobalVariable.pwd)
+                CustomKeywords.'com.da.commonutilities.login'(RD)
 
                 CustomKeywords.'com.da.commonutilities.search'()
 
-                WebUI.maximizeWindow()
-
-                CustomKeywords.'com.da.commonutilities.reject'()
-
-                GlobalVariable.RDReject = false
-
-                CustomKeywords.'com.da.commonutilities.searchStatus'()
+                CustomKeywords.'com.da.ECR.approve'()
             }
-        } else if (GlobalVariable.Status == 'Pending-RLApproval') {
-            if (GlobalVariable.RLReject == false) {
-                CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.URL, GlobalVariable.RL, GlobalVariable.pwd)
-
-                CustomKeywords.'com.da.commonutilities.search'()
-
-                WebUI.maximizeWindow()
-
-                CustomKeywords.'com.da.commonutilities.approve'()
-
-                CustomKeywords.'com.da.commonutilities.searchStatus'()
-            } else {
-                CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.URL, GlobalVariable.RL, GlobalVariable.pwd)
-
-                CustomKeywords.'com.da.commonutilities.search'()
-
-                WebUI.maximizeWindow()
-
-                CustomKeywords.'com.da.commonutilities.reject'()
-
-                GlobalVariable.RLReject = false
-
-                CustomKeywords.'com.da.commonutilities.searchStatus'()
-            }
-        } else if (GlobalVariable.Status == 'Pending-RDDApproval') {
-            if (GlobalVariable.RDD_Reject == false) {
-                CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.URL, GlobalVariable.RDD, GlobalVariable.pwd)
-
-                CustomKeywords.'com.da.commonutilities.search'()
-
-                CustomKeywords.'com.da.commonutilities.approve'()
-
-                CustomKeywords.'com.da.commonutilities.searchStatus'()
-            } else {
-                CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.URL, GlobalVariable.RDD, GlobalVariable.pwd)
-
-                CustomKeywords.'com.da.commonutilities.search'()
-
-                CustomKeywords.'com.da.commonutilities.reject'()
-
-                GlobalVariable.RDD_Reject = false
-
-                CustomKeywords.'com.da.commonutilities.searchStatus'()
-
-                println(GlobalVariable.Status)
-            }
-        } else if (GlobalVariable.Status == 'Pending-OPSApproval') {
-            if (GlobalVariable.OpsReject == false) {
-                CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.URL, GlobalVariable.OPS, GlobalVariable.pwd)
-
-                CustomKeywords.'com.da.commonutilities.search'()
-
-                CustomKeywords.'com.da.commonutilities.gsopsApprove'()
-
-                CustomKeywords.'com.da.commonutilities.searchStatus'()
-            } else {
-                CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.URL, GlobalVariable.OPS, GlobalVariable.pwd)
-
-                CustomKeywords.'com.da.commonutilities.search'()
-
-                WebUI.maximizeWindow()
-
-                CustomKeywords.'com.da.commonutilities.gsopsReject'()
-
-                CustomKeywords.'com.da.commonutilities.searchStatus'()
-
-                GlobalVariable.OpsReject = false
-            }
-        } else if (GlobalVariable.Status == 'Pending-ExpSvcApproval') {
-            if (GlobalVariable.EXP_SVC_Reject == false) {
-                CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.URL, GlobalVariable.EXP_SVC, 
-                    GlobalVariable.pwd)
-
-                CustomKeywords.'com.da.commonutilities.search'()
-
-                CustomKeywords.'com.da.commonutilities.approve'()
-
-                CustomKeywords.'com.da.commonutilities.searchStatus'()
-            } else {
-                CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.URL, GlobalVariable.EXP_SVC, 
-                    GlobalVariable.pwd)
-
-                CustomKeywords.'com.da.commonutilities.search'()
-
-                CustomKeywords.'com.da.commonutilities.reject'()
-
-                GlobalVariable.EXP_SVC_Reject = false
-
-                CustomKeywords.'com.da.commonutilities.searchStatus'()
-            }
-        } else if (GlobalVariable.Status == 'Pending-DocUpdate') {
-            if (GlobalVariable.Meeting == false) {
-                CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.URL, GlobalVariable.OPS, GlobalVariable.pwd)
-
-                CustomKeywords.'com.da.commonutilities.search'()
-
-                WebUI.maximizeWindow()
-
-                CustomKeywords.'com.da.commonutilities.docUpdate'()
-
-                CustomKeywords.'com.da.commonutilities.searchStatus'()
-
-                WebUI.delay(3)
-            } else {
-                CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.URL, GlobalVariable.OPS, GlobalVariable.pwd)
-
-                CustomKeywords.'com.da.commonutilities.search'()
-
-                WebUI.maximizeWindow()
-
-                CustomKeywords.'com.da.commonutilities.docUpdateMeeting'()
-
-                CustomKeywords.'com.da.commonutilities.searchStatus'()
-            }
-        } else if (GlobalVariable.Status == 'Pending-Contract') {
-            CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.URL, GlobalVariable.PL, GlobalVariable.pwd)
-
-            CustomKeywords.'com.da.commonutilities.search'()
-
-            WebUI.maximizeWindow()
-
-            CustomKeywords.'com.da.commonutilities.ContractDisposition'()
-
-            WebUI.waitForPageLoad(4)
-
-            CustomKeywords.'com.da.commonutilities.searchStatus'()
-        } else if (GlobalVariable.Status == 'Pending-MeetingSchedule') {
-            CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.URL, GlobalVariable.CLINIC, GlobalVariable.pwd)
-
-            CustomKeywords.'com.da.commonutilities.search'()
-
-            WebUI.maximizeWindow()
-
-            CustomKeywords.'com.da.commonutilities.scheduleMeeting'()
-
-            WebUI.waitForPageLoad(4)
-
-            CustomKeywords.'com.da.commonutilities.searchStatus'()
-        } else if (GlobalVariable.Status == 'Pending-ExpSvcReview') {
-            CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.URL, GlobalVariable.EXP_SVC, GlobalVariable.pwd)
-
-            CustomKeywords.'com.da.commonutilities.search'()
-
-            WebUI.maximizeWindow()
-
-            CustomKeywords.'com.da.commonutilities.EXPReview'()
-
-            WebUI.waitForPageLoad(4)
-
-            CustomKeywords.'com.da.commonutilities.searchStatus'()
         } else {
-            CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.URL, GlobalVariable.RD, GlobalVariable.pwd)
+            CustomKeywords.'com.da.commonutilities.login'(RD)
 
             CustomKeywords.'com.da.commonutilities.search'()
 
-            WebUI.maximizeWindow()
+            CustomKeywords.'com.da.ECR.reject'()
 
-            CustomKeywords.'com.da.commonutilities.pendingClinic'()
-
-            WebUI.waitForPageLoad(4)
-
-            CustomKeywords.'com.da.commonutilities.searchStatus'()
+            GlobalVariable.RDReject = false
         }
+    } else if (GlobalVariable.Status == 'Pending-RLApproval') {
+        if (GlobalVariable.RLReject == false) {
+            CustomKeywords.'com.da.commonutilities.login'(RL)
+
+            CustomKeywords.'com.da.commonutilities.search'()
+
+            CustomKeywords.'com.da.ECR.approve'()
+        } else {
+            CustomKeywords.'com.da.commonutilities.login'(RL)
+
+            CustomKeywords.'com.da.commonutilities.search'()
+
+            CustomKeywords.'com.da.ECR.reject'()
+
+            GlobalVariable.RLReject = false
+        }
+    } else if (GlobalVariable.Status == 'Pending-RDDApproval') {
+        if (GlobalVariable.RDD_Reject == false) {
+            CustomKeywords.'com.da.commonutilities.login'(RDD)
+
+            CustomKeywords.'com.da.commonutilities.search'()
+
+            CustomKeywords.'com.da.ECR.approve'()
+        } else {
+            CustomKeywords.'com.da.commonutilities.login'(RDD)
+
+            CustomKeywords.'com.da.commonutilities.search'()
+
+            CustomKeywords.'com.da.ECR.reject'()
+
+            GlobalVariable.RDD_Reject = false
+        }
+    } else if (GlobalVariable.Status == 'Pending-OPSApproval') {
+        if (GlobalVariable.OpsReject == false) {
+            CustomKeywords.'com.da.commonutilities.login'(OPS)
+
+            CustomKeywords.'com.da.commonutilities.search'()
+
+            CustomKeywords.'com.da.ECR.gsopsApprove'()
+        } else {
+            CustomKeywords.'com.da.commonutilities.login'(OPS)
+
+            CustomKeywords.'com.da.commonutilities.search'()
+
+            CustomKeywords.'com.da.ECR.gsopsReject'()
+
+            GlobalVariable.OpsReject = false
+        }
+    } else if (GlobalVariable.Status == 'Pending-ExpSvcApproval') {
+        if (GlobalVariable.EXP_SVC_Reject == false) {
+            CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.EXP_SVC)
+
+            CustomKeywords.'com.da.commonutilities.search'()
+
+            CustomKeywords.'com.da.ECR.approve'()
+        } else {
+            CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.EXP_SVC)
+
+            CustomKeywords.'com.da.commonutilities.search'()
+
+            CustomKeywords.'com.da.ECR.reject'()
+
+            GlobalVariable.EXP_SVC_Reject = false
+        }
+    } else if (GlobalVariable.Status == 'Pending-SpApprApproval') {
+        if (GlobalVariable.EXP_SVC_Reject == false) {
+            CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.EXP_SVC)
+
+            CustomKeywords.'com.da.commonutilities.search'()
+
+            CustomKeywords.'com.da.ECR.approve'()
+        } else {
+            CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.EXP_SVC)
+
+            CustomKeywords.'com.da.commonutilities.search'()
+
+            CustomKeywords.'com.da.ECR.reject'()
+
+            GlobalVariable.EXP_SVC_Reject = false
+        }
+    } else if (GlobalVariable.Status == 'Pending-DocUpdate') {
+        if (GlobalVariable.Meeting == false) {
+            CustomKeywords.'com.da.commonutilities.login'(PL)
+
+            CustomKeywords.'com.da.commonutilities.search'()
+
+            CustomKeywords.'com.da.ECR.docUpdate'()
+        } else {
+            CustomKeywords.'com.da.commonutilities.login'(PL)
+
+            CustomKeywords.'com.da.commonutilities.search'()
+
+            CustomKeywords.'com.da.ECR.docUpdateMeeting'()
+        }
+    } else if (GlobalVariable.Status == 'Pending-Contract') {
+        CustomKeywords.'com.da.commonutilities.login'(PL)
+
+        CustomKeywords.'com.da.commonutilities.search'()
+
+        CustomKeywords.'com.da.ECR.ContractDisposition'(DispositionReason)
+
+        not_run: CustomKeywords.'com.da.commonutilities.readWO'(TestCaseno, TestDataFile)
+
+        GlobalVariable.WOSTATUS == 'Resolved-won'
+    } else if (GlobalVariable.Status == 'Pending-MeetingSchedule') {
+        CustomKeywords.'com.da.commonutilities.login'(CLINIC)
+
+        CustomKeywords.'com.da.commonutilities.search'()
+
+        CustomKeywords.'com.da.ECR.scheduleMeeting'()
+    } else if (GlobalVariable.Status == 'Pending-RDDReview') {
+        CustomKeywords.'com.da.commonutilities.login'(RDD)
+
+        CustomKeywords.'com.da.commonutilities.search'()
+
+        CustomKeywords.'com.da.ECR.docUpdateMeeting'()
+    } else if (GlobalVariable.Status == 'Pending-OPSReview') {
+        CustomKeywords.'com.da.commonutilities.login'(OPS)
+
+        CustomKeywords.'com.da.commonutilities.search'()
+
+        CustomKeywords.'com.da.ECR.gsopsReview'()
+    } else if (GlobalVariable.Status == 'Pending-ExpSvcReview') {
+        CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.EXP_SVC)
+
+        CustomKeywords.'com.da.commonutilities.search'()
+
+        CustomKeywords.'com.da.ECR.EXPReview_RDDReview_SPReview'()
+    } else if (GlobalVariable.Status == 'Pending-SpRevReview') {
+        CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.EXP_SVC)
+
+        CustomKeywords.'com.da.commonutilities.search'()
+
+        CustomKeywords.'com.da.ECR.EXPReview_RDDReview_SPReview'()
+    } else {
+        CustomKeywords.'com.da.commonutilities.login'(RD)
+
+        CustomKeywords.'com.da.commonutilities.search'()
+
+        CustomKeywords.'com.da.ECR.pendingClinic'()
     }
+    
+    /* }for loop end braces */
+    CustomKeywords.'com.da.commonutilities.searchStatus'()
 }
+
+not_run: CustomKeywords.'com.da.ECR.ContractDisposition'('Create Contract', 'Won')
+
+CustomKeywords.'com.da.ECR.pendingClinic'('Approved: Non-Financial Updates Required')
 
