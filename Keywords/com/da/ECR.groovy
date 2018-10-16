@@ -62,7 +62,7 @@ import com.da.commonutilities as CUTILS
 
 public class ECR {
 
-
+	public final static String XPATH_LABEL ='//label[contains(.,"%s")]'
 
 	@Keyword
 	def CreateECR(String Filelocation, String ORG, String ACC,String PL, String RD, String RL, String PLTL,Boolean DataDriven, String TestCaseNo,String TestDataFile, String APP) {
@@ -73,7 +73,7 @@ public class ECR {
 		println TestDataFile
 
 
-		WebUI.maximizeWindow()
+
 		WebUI.delay(2)
 		WebUI.click(findTestObject('Generic/New'))
 		WebUI.delay(4)
@@ -109,6 +109,9 @@ public class ECR {
 			WebUI.delay(5)
 
 		CUTILS.clickUsingJS(findTestObject('Generic/SUBMIT'),30)
+		WebUI.verifyTextPresent("LedBy", false, FailureHandling.OPTIONAL)
+		WebUI.delay(5)
+
 		WebUI.waitForPageLoad(30)
 		String LedBy=WebUI.getText(findTestObject("ECR/Generic/LedBy"))
 		WebUI.delay(2)
@@ -166,7 +169,7 @@ public class ECR {
 			else
 
 				WebUI.delay(5)
-			WebUI.selectOptionByValue(findTestObject('ECR/EngInfo/PL'), PL, false)
+			WebUI.selectOptionByValue(findTestObject('ECR/EngInfo/PL'),PL, false)
 			WebUI.delay(5)
 			WebUI.selectOptionByValue(findTestObject('ECR/EngInfo/RL'),RL,false)
 			WebUI.delay(5)
@@ -180,6 +183,7 @@ public class ECR {
 
 		if(DataDriven)
 			CUTILS.WriteWO(TestCaseNo, TestDataFile,1,GlobalVariable.WOID)
+
 
 
 		WebUI.delay(5)
@@ -223,8 +227,8 @@ public class ECR {
 			/*WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'), 2)*/
 			WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
 			WebUI.delay(5)
-			WebUI.scrollToElement(findTestObject('Generic/FINISH_BUTTON'), 2)
-			WebUI.click(findTestObject('Generic/FINISH_BUTTON'))
+			WebUI.scrollToElement(findTestObject('ECR/Generic/FINISH_ECR'), 2)
+			WebUI.click(findTestObject('ECR/Generic/FINISH_ECR'))
 			WebUI.delay(5)
 
 			if(GlobalVariable.Meeting==true){
@@ -244,13 +248,13 @@ public class ECR {
 			WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
 			WebUI.delay(7)
 			WebUI.waitForPageLoad(3)
-			WebUI.click(findTestObject('Generic/FINISH_BUTTON'))
+			WebUI.click(findTestObject('ECR/Generic/FINISH_ECR'))
 			WebUI.waitForPageLoad(30)
 			WebUI.delay(5)
 
 			if(GlobalVariable.referencesize && GlobalVariable.Meeting==false) {
 				AttachCaseTypeDoc()
-				WebUI.sendKeys(findTestObject('ECR/Approve-Reject/APPROVE_REJECT_NOTES'), GlobalVariable.LongNotes)
+				WebUI.sendKeys(findTestObject('ECR/Approve-Reject/NOTES'), GlobalVariable.LongNotes)
 				WebUI.scrollToElement(findTestObject('Object Repository/Generic/SUBMIT'),2)
 				WebUI.click(findTestObject('Generic/SUBMIT'))
 				WebUI.waitForPageLoad(30)
@@ -325,40 +329,51 @@ public class ECR {
 	}
 
 	@Keyword
-	def approve() {
+	def approve_reject_review(String Option) {
 		WebUI.delay(5)
 		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
-		CUTILS.begin()
+		if(GlobalVariable.Status=='Pending-OPSApproval' || GlobalVariable.Status=='Pending-OPSReview')
+			CUTILS.beginGSOPS()
+		else(CUTILS.begin())
 		WebUI.delay(5)
 		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
 		WebUI.delay(5)
-		WebUI.scrollToElement(findTestObject('ECR/Approve-Reject/APPROVE_BUTTON'),4)
-		CUTILS.clickUsingJS(findTestObject('ECR/Approve-Reject/APPROVE_BUTTON'),10)
+		if(WebUI.verifyTextPresent("Select an action to takeRequired", false, FailureHandling.OPTIONAL))
+			CUTILS.IdentifyLabelField(Option)
 		WebUI.delay(5)
-		WebUI.sendKeys(findTestObject('ECR/Approve-Reject/APPROVE_REJECT_NOTES'), GlobalVariable.LongNotes)
+		GlobalVariable.RouteToRL=false
+		if(WebUI.verifyTextPresent("This quote will not be automatically routed for RL approval.", false, FailureHandling.OPTIONAL))
+			GlobalVariable.RouteToRL=true
+
+		if(GlobalVariable.RouteToRL==true) {
+			CUTILS.clickUsingJS(findTestObject('ECR/Approve-Reject/routetoRL'),30)
+			WebUI.delay(5)
+			WebUI.waitForPageLoad(4)
+			GlobalVariable.RouteToRL=false
+			println GlobalVariable.RouteToRL
+		}
+
+		WebUI.sendKeys(findTestObject('ECR/Approve-Reject/NOTES'), GlobalVariable.LongNotes)
 		WebUI.delay(5)
 		WebUI.scrollToElement(findTestObject('Object Repository/Generic/SUBMIT'),2)
 		WebUI.click(findTestObject('Generic/SUBMIT'))
-		/*CUTILS.clickUsingJS(findTestObject('Generic/SUBMIT'),30)*/
 		WebUI.waitForPageLoad(10)
 	}
 
-
-
-
 	@Keyword
-
-
-	def EXPReview_RDDReview_SPReview() {
-		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
-		CUTILS.begin()
-		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
-		WebUI.sendKeys(findTestObject('ECR/Approve-Reject/APPROVE_REJECT_NOTES'), GlobalVariable.LongNotes)
+	def recall() {
 		WebUI.delay(5)
-		WebUI.scrollToElement(findTestObject('Object Repository/Generic/SUBMIT'),5)
-		CUTILS.clickUsingJS(findTestObject('Generic/SUBMIT'),30)
+		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 2)
+		WebUI.click(findTestObject('Generic/otherAction'))
 		WebUI.delay(5)
+		WebUI.click(findTestObject('Generic/Recall/recall'))
+		WebUI.delay(7)
+		WebUI.setText(findTestObject('Generic/Recall/recall_reason'), GlobalVariable.LongNotes)
+		WebUI.delay(5)
+		WebUI.click(findTestObject('Generic/Recall/recall_submit'))
+		WebUI.waitForPageLoad(20)
 	}
+
 
 	@Keyword
 	def gsopsReview(){
@@ -367,27 +382,9 @@ public class ECR {
 		CUTILS.beginGSOPS()
 		WebUI.waitForPageLoad(3)
 		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
-		WebUI.sendKeys(findTestObject('ECR/Approve-Reject/APPROVE_REJECT_NOTES'), GlobalVariable.LongNotes)
+		WebUI.sendKeys(findTestObject('ECR/Approve-Reject/NOTES'), GlobalVariable.LongNotes)
 		WebUI.delay(5)
 		WebUI.scrollToElement(findTestObject('Object Repository/Generic/SUBMIT'),5)
-		CUTILS.clickUsingJS(findTestObject('Generic/SUBMIT'),30)
-		WebUI.waitForPageLoad(10)
-	}
-
-
-
-	@Keyword
-	def gsopsApprove(){
-		WebUI.delay(5)
-		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
-		CUTILS.beginGSOPS()
-		WebUI.waitForPageLoad(3)
-		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
-		WebUI.scrollToElement(findTestObject('ECR/Approve-Reject/APPROVE_BUTTON'),3)
-		CUTILS.clickUsingJS(findTestObject('ECR/Approve-Reject/APPROVE_BUTTON'),10)
-		WebUI.delay(5)
-		WebUI.sendKeys(findTestObject('ECR/Approve-Reject/APPROVE_REJECT_NOTES'), GlobalVariable.LongNotes)
-		WebUI.delay(5)
 		CUTILS.clickUsingJS(findTestObject('Generic/SUBMIT'),30)
 		WebUI.waitForPageLoad(10)
 	}
@@ -401,10 +398,9 @@ public class ECR {
 		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
 		CUTILS.beginGSOPS()
 		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
-		WebUI.scrollToElement(findTestObject('ECR/Approve-Reject/ReturnToRequestor'),5)
-		WebUI.click(findTestObject('ECR/Approve-Reject/ReturnToRequestor'))
-		WebUI.delay(5)
-		WebUI.sendKeys(findTestObject('ECR/Approve-Reject/APPROVE_REJECT_NOTES'), GlobalVariable.LongNotes)
+
+		CUTILS.IdentifyLabelField('Return to requestor')
+		WebUI.sendKeys(findTestObject('ECR/Approve-Reject/NOTES'), GlobalVariable.LongNotes)
 		WebUI.delay(5)
 		WebUI.scrollToElement(findTestObject('Object Repository/Generic/SUBMIT'),5)
 		CUTILS.clickUsingJS(findTestObject('Generic/SUBMIT'),30)
@@ -412,77 +408,89 @@ public class ECR {
 		WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'), 2)
 		WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
 		WebUI.delay(5)
-		WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'), 2)
-		WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
-		WebUI.delay(5)
-		if (GlobalVariable.Meeting==true) {
+
+		if(WebUI.verifyElementPresent(findTestObject('ECR/Meeting/clinicLink'), 10, FailureHandling.OPTIONAL)) {
 			WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'), 2)
 			WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
 			WebUI.delay(5)
-			WebUI.scrollToElement(findTestObject('Generic/FINISH_BUTTON'), 2)
-			WebUI.click(findTestObject('Generic/FINISH_BUTTON'))
+			WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'), 2)
+			WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
+			WebUI.delay(5)
+			WebUI.scrollToElement(findTestObject('ECR/Generic/FINISH_ECR'), 2)
+			WebUI.click(findTestObject('ECR/Generic/FINISH_ECR'))
 			WebUI.delay(5)
 			WebUI.click(findTestObject('ECR/EngInfo/Continue'))
 
 			WebUI.delay(5)
+			WebUI.clearText(findTestObject('ECR/Meeting/BSW_TEXT', FailureHandling.STOP_ON_FAILURE))
+			WebUI.delay(3)
 			WebUI.sendKeys(findTestObject('ECR/Meeting/BSW_TEXT'), GlobalVariable.LongNotes)
 			WebUI.delay(5)
+			/*
+			 def List= []
+			 List = WebUI.findWebElements(findTestObject('ECR/Meeting/TextArea_Meeting'), 10)
+			 for (int i = 0; i < List.size(); i++) {
+			 List[i].clear()
+			 List[i].sendKeys(GlobalVariable.LongNotes)
+			 }*/
 
-			def List= []
-			List = WebUI.findWebElements(findTestObject('ECR/Meeting/TextArea_Meeting'), 10)
-			for (int i = 0; i < List.size(); i++)
-				List[i].sendKeys(GlobalVariable.LongNotes)
-
-			WebUI.sendKeys(findTestObject('ECR/Approve-Reject/APPROVE_REJECT_NOTES'), GlobalVariable.LongNotes)
+			WebUI.sendKeys(findTestObject('ECR/Approve-Reject/NOTES'), GlobalVariable.LongNotes)
 			WebUI.scrollToElement(findTestObject('Object Repository/Generic/SUBMIT'),5)
 			CUTILS.clickUsingJS(findTestObject('Generic/SUBMIT'),30)
 			WebUI.delay(5)
 		}
+
+		else if(GlobalVariable.referencesize==true){
+
+			WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'),5)
+			WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
+			WebUI.delay(5)
+			WebUI.waitForPageLoad(4)
+			WebUI.scrollToElement(findTestObject('ECR/Generic/FINISH_ECR'),3)
+			WebUI.click(findTestObject('ECR/Generic/FINISH_ECR'))
+			WebUI.delay(5)
+			WebUI.waitForPageLoad(4)
+			WebUI.sendKeys(findTestObject('ECR/Approve-Reject/NOTES'), GlobalVariable.LongNotes)
+			WebUI.delay(5)
+			WebUI.scrollToElement(findTestObject('Object Repository/Generic/SUBMIT'),5)
+			CUTILS.clickUsingJS(findTestObject('Generic/SUBMIT'),30)
+			WebUI.delay(5)
+		}
+
 		else {
 			println "no meeting"
-
-			WebUI.scrollToElement(findTestObject('Generic/FINISH_BUTTON'), 2)
-			WebUI.click(findTestObject('Generic/FINISH_BUTTON'))
+			WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'), 2)
+			WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
+			WebUI.delay(5)
+			WebUI.scrollToElement(findTestObject('ECR/Generic/FINISH_ECR'), 2)
+			WebUI.click(findTestObject('ECR/Generic/FINISH_ECR'))
 			WebUI.delay(5)
 		}
 	}
 
-	@Keyword
-	def reject() {
-		WebUI.delay(5)
-		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
-		CUTILS.begin()
-		WebUI.delay(5)
-		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
-		WebUI.scrollToElement(findTestObject('ECR/Approve-Reject/ReturnToRequestor'),0)
-		WebUI.click(findTestObject('ECR/Approve-Reject/ReturnToRequestor'))
-		WebUI.delay(5)
-		WebUI.sendKeys(findTestObject('ECR/Approve-Reject/APPROVE_REJECT_NOTES'), GlobalVariable.LongNotes)
-		WebUI.delay(5)
-		WebUI.scrollToElement(findTestObject('Object Repository/Generic/SUBMIT'),5)
-		CUTILS.clickUsingJS(findTestObject('Generic/SUBMIT'),30)
-		WebUI.delay(5)
-	}
 
 	@Keyword
 	def static readWO(String TestCaseNo, String TestDataFile) {
 		TestDataFile=System.getProperty("user.dir")+TestDataFile
 		println TestDataFile
 		WebUI.delay(2)
-		WebUI.click(findTestObject('ECR/Generic/WO/EngTab'))
-		WebUI.delay(2)
-		String ENGID=WebUI.getText(findTestObject('Object Repository/ECR/Generic/WO/ENGID'))
-		WebUI.delay(2)
-		String PROJID=WebUI.getText(findTestObject('Object Repository/ECR/Generic/WO/PROJID'))
-		WebUI.delay(2)
-		CUTILS.WriteWO(TestCaseNo, TestDataFile,3,ENGID)
-		CUTILS.WriteWO(TestCaseNo, TestDataFile,4,PROJID)
-		WebUI.delay(2)
-		WebUI.click(findTestObject('Object Repository/ECR/Generic/WO/CRTab'))
-		WebUI.delay(2)
-		String CRID=WebUI.getText(findTestObject('Object Repository/ECR/Generic/WO/CRID'))
-		WebUI.delay(2)
-		CUTILS.WriteWO(TestCaseNo, TestDataFile,2,CRID)
+		/*	WebUI.click(findTestObject('ECR/Generic/WO/EngTab'))
+		 WebUI.delay(2)
+		 String ENGID=WebUI.getText(findTestObject('Object Repository/ECR/Generic/WO/ENGID'))
+		 WebUI.delay(2)
+		 String PROJID=WebUI.getText(findTestObject('Object Repository/ECR/Generic/WO/PROJID'))
+		 WebUI.delay(2)
+		 CUTILS.WriteWO(TestCaseNo, TestDataFile,3,ENGID)
+		 CUTILS.WriteWO(TestCaseNo, TestDataFile,4,PROJID)
+		 WebUI.delay(2)
+		 WebUI.click(findTestObject('Object Repository/ECR/Generic/WO/CRTab'))
+		 WebUI.delay(2)
+		 String CRID=WebUI.getText(findTestObject('Object Repository/ECR/Generic/WO/CRID'))
+		 WebUI.delay(2)
+		 CUTILS.WriteWO(TestCaseNo, TestDataFile,2,CRID)
+		 WebUI.delay(2)*/
+		CUTILS.WriteWO(TestCaseNo, TestDataFile,5,GlobalVariable.WOSTATUS)
+		CUTILS.WriteWO(TestCaseNo, TestDataFile,1,GlobalVariable.WOID)
 	}
 
 	@Keyword
@@ -494,13 +502,17 @@ public class ECR {
 		if(GlobalVariable.referencesize)
 			AttachCaseTypeDoc()
 
+		WebUI.delay(2)
 		WebUI.sendKeys(findTestObject('ECR/Meeting/BSW_TEXT'), GlobalVariable.LongNotes)
+
 		WebUI.delay(5)
 		def List= []
 		List = WebUI.findWebElements(findTestObject('ECR/Meeting/TextArea_Meeting'), 10)
-		for (int i = 0; i < List.size(); i++)
+		for (int i = 0; i < List.size(); i++) {
+			List[i].clear()
 			List[i].sendKeys(GlobalVariable.LongNotes)
-		WebUI.sendKeys(findTestObject('ECR/Approve-Reject/APPROVE_REJECT_NOTES'), GlobalVariable.LongNotes)
+		}
+		WebUI.sendKeys(findTestObject('ECR/Approve-Reject/NOTES'), GlobalVariable.LongNotes)
 		WebUI.delay(5)
 		WebUI.scrollToElement(findTestObject('Object Repository/Generic/SUBMIT'),5)
 		CUTILS.clickUsingJS(findTestObject('Generic/SUBMIT'),30)
@@ -511,23 +523,20 @@ public class ECR {
 
 
 	@Keyword
-	def ContractDisposition() {
+	def ContractDisposition(String ContractOption, String DispositionReason) {
+
 		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
 		CUTILS.begin()
 		WebUI.delay(5)
 		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
-		WebUI.click(findTestObject('ECR/Approve-Reject/createContract'))
-		WebUI.delay(2)
-		WebUI.click(findTestObject('ECR/Approve-Reject/createContract'))
-		WebUI.setText(findTestObject('ECR/Approve-Reject/contractNotes'), GlobalVariable.LongNotes)
-		WebUI.delay(5)
+		CUTILS.IdentifyLabelField(ContractOption)
 		WebUI.scrollToElement(findTestObject('Object Repository/Generic/SUBMIT'),5)
 		CUTILS.clickUsingJS(findTestObject('Generic/SUBMIT'),30)
 		WebUI.delay(5)
 		WebUI.waitForPageLoad(4)
 		CUTILS.begin()
 		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
-		WebUI.click(findTestObject('ECR/Approve-Reject/dispositionOption'))
+		CUTILS.IdentifyLabelField(DispositionReason)
 		WebUI.delay(5)
 		WebUI.setText(findTestObject('ECR/Approve-Reject/disposition_comments'), GlobalVariable.LongNotes)
 		WebUI.delay(5)
@@ -536,71 +545,33 @@ public class ECR {
 		WebUI.delay(5)
 	}
 
-	@Keyword
 
-	def routeToRL() {
-		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
-		CUTILS.begin()
-		WebUI.delay(5)
-		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
-		WebUI.scrollToElement(findTestObject('ECR/Approve-Reject/APPROVE_BUTTON'),5)
-		CUTILS.clickUsingJS(findTestObject('ECR/Approve-Reject/APPROVE_BUTTON'),10)
-		WebUI.delay(5)
-		WebUI.sendKeys(findTestObject('ECR/Approve-Reject/APPROVE_REJECT_NOTES'), GlobalVariable.LongNotes)
-		WebUI.delay(5)
-		if (GlobalVariable.Meeting==false) {
-			WebUI.click(findTestObject('ECR/Approve-Reject/routetoRL'))
-			WebUI.delay(5)
-			WebUI.scrollToElement(findTestObject('Object Repository/Generic/SUBMIT'),5)
-			CUTILS.clickUsingJS(findTestObject('Generic/SUBMIT'),30)
-			WebUI.delay(5)
-			WebUI.waitForPageLoad(4)
-		}
-		else {
-			WebUI.scrollToElement(findTestObject('Object Repository/Generic/SUBMIT'),5)
-			CUTILS.clickUsingJS(findTestObject('Generic/SUBMIT'),30)
-			WebUI.delay(5)
-		}
-	}
+	/*
+	 @Keyword
+	 def docUpdate() {
+	 WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
+	 CUTILS.begin()
+	 WebUI.delay(5)
+	 WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
+	 WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'),5)
+	 WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
+	 WebUI.delay(5)
+	 WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'),5)
+	 WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
+	 WebUI.delay(5)
+	 WebUI.waitForPageLoad(4)
+	 WebUI.scrollToElement(findTestObject('ECR/Generic/FINISH_ECR'),3)
+	 WebUI.click(findTestObject('ECR/Generic/FINISH_ECR'))
+	 WebUI.delay(5)
+	 WebUI.waitForPageLoad(4)
+	 }
+	 */
 
-	@Keyword
-	def noRL() {
-
-		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
-		WebUI.scrollToElement(findTestObject('ECR/Approve-Reject/APPROVE_BUTTON'),5)
-		CUTILS.clickUsingJS(findTestObject('ECR/Approve-Reject/APPROVE_BUTTON'),10)
-		WebUI.delay(5)
-		WebUI.sendKeys(findTestObject('ECR/Approve-Reject/APPROVE_REJECT_NOTES'), GlobalVariable.LongNotes)
-		WebUI.delay(5)
-		WebUI.click(findTestObject('ECR/Approve-Reject/routetoRLNO'))
-		WebUI.delay(5)
-		WebUI.scrollToElement(findTestObject('Object Repository/Generic/SUBMIT'),5)
-		CUTILS.clickUsingJS(findTestObject('Generic/SUBMIT'),30)
-		WebUI.delay(5)
-		WebUI.waitForPageLoad(4)
-	}
-
-	@Keyword
-
-	def RDApprove_Meeting() {
-		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
-		CUTILS.begin()
-		WebUI.delay(5)
-		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
-		WebUI.scrollToElement(findTestObject('ECR/Approve-Reject/APPROVE_BUTTON'),5)
-		CUTILS.clickUsingJS(findTestObject('ECR/Approve-Reject/APPROVE_BUTTON'),10)
-		WebUI.delay(5)
-		WebUI.sendKeys(findTestObject('ECR/Approve-Reject/APPROVE_REJECT_NOTES'), GlobalVariable.LongNotes)
-		WebUI.delay(5)
-		WebUI.scrollToElement(findTestObject('Object Repository/Generic/SUBMIT'),5)
-		CUTILS.clickUsingJS(findTestObject('Generic/SUBMIT'),30)
-		WebUI.delay(5)
-		WebUI.waitForPageLoad(4)
-	}
 	@Keyword
 
 	def docUpdate() {
 
+		GlobalVariable.referencesize=true
 		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
 		CUTILS.begin()
 		WebUI.delay(5)
@@ -608,58 +579,69 @@ public class ECR {
 		WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'),5)
 		WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
 		WebUI.delay(5)
-		WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'),5)
-		WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
-		WebUI.delay(5)
-		WebUI.waitForPageLoad(4)
-		WebUI.scrollToElement(findTestObject('Generic/FINISH_BUTTON'),3)
-		WebUI.click(findTestObject('Generic/FINISH_BUTTON'))
-		WebUI.delay(5)
-		WebUI.waitForPageLoad(4)
+		if(WebUI.verifyElementPresent(findTestObject('ECR/Meeting/clinicLink'), 10, FailureHandling.OPTIONAL)) {
+			WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'),5)
+			WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
+			WebUI.delay(5)
+			WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'),5)
+			WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
+			WebUI.delay(5)
+			WebUI.waitForPageLoad(4)
+			WebUI.scrollToElement(findTestObject('ECR/Generic/FINISH_ECR'),3)
+			WebUI.click(findTestObject('ECR/Generic/FINISH_ECR'))
+			WebUI.delay(5)
+			WebUI.click(findTestObject('ECR/EngInfo/Continue'))
+			WebUI.waitForPageLoad(3)
+			/*
+			 CUTILS.begin()
+			 WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
+			 WebUI.sendKeys(findTestObject('ECR/Meeting/BSW_TEXT'), GlobalVariable.LongNotes)
+			 */
+
+
+			WebUI.delay(5)
+			def List= []
+			List = WebUI.findWebElements(findTestObject('ECR/Meeting/TextArea_Meeting'), 10)
+			for (int i = 0; i < List.size(); i++) {
+				List[i].clear()
+				List[i].sendKeys(GlobalVariable.LongNotes)
+			}
+
+			WebUI.sendKeys(findTestObject('ECR/Approve-Reject/NOTES'), GlobalVariable.LongNotes)
+			WebUI.delay(5)
+			WebUI.scrollToElement(findTestObject('Object Repository/Generic/SUBMIT'),5)
+			CUTILS.clickUsingJS(findTestObject('Generic/SUBMIT'),30)
+			WebUI.delay(5)
+		}
+		else if(GlobalVariable.referencesize==true){
+
+			WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'),5)
+			WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
+			WebUI.delay(5)
+			WebUI.waitForPageLoad(4)
+			WebUI.scrollToElement(findTestObject('ECR/Generic/FINISH_ECR'),3)
+			WebUI.click(findTestObject('ECR/Generic/FINISH_ECR'))
+			WebUI.delay(5)
+			WebUI.waitForPageLoad(4)
+			WebUI.sendKeys(findTestObject('ECR/Approve-Reject/NOTES'), GlobalVariable.LongNotes)
+			WebUI.delay(5)
+			WebUI.scrollToElement(findTestObject('Object Repository/Generic/SUBMIT'),5)
+			CUTILS.clickUsingJS(findTestObject('Generic/SUBMIT'),30)
+			WebUI.delay(5)
+		}
+		else {
+			WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'),5)
+			WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
+			WebUI.delay(5)
+			WebUI.waitForPageLoad(4)
+			WebUI.scrollToElement(findTestObject('ECR/Generic/FINISH_ECR'),3)
+			WebUI.click(findTestObject('ECR/Generic/FINISH_ECR'))
+			WebUI.delay(5)
+			WebUI.waitForPageLoad(4)
+		}
 	}
 
 
-	@Keyword
-
-	def docUpdateMeeting() {
-		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
-		CUTILS.begin()
-		WebUI.delay(5)
-		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
-		WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'),5)
-		WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
-		WebUI.waitForPageLoad(4)
-		WebUI.delay(5)
-		WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'),5)
-		WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
-		WebUI.delay(5)
-		WebUI.scrollToElement(findTestObject('Generic/NEXT_BUTTON'),5)
-		WebUI.click(findTestObject('Generic/NEXT_BUTTON'))
-		WebUI.delay(5)
-		WebUI.waitForPageLoad(4)
-		WebUI.scrollToElement(findTestObject('Generic/FINISH_BUTTON'),3)
-		WebUI.click(findTestObject('Generic/FINISH_BUTTON'))
-		WebUI.delay(5)
-		WebUI.click(findTestObject('ECR/EngInfo/Continue'))
-		WebUI.waitForPageLoad(3)
-		/*CUTILS.begin()
-		 WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)*/
-		WebUI.sendKeys(findTestObject('ECR/Meeting/BSW_TEXT'), GlobalVariable.LongNotes)
-		WebUI.delay(5)
-
-
-		def List= []
-		List = WebUI.findWebElements(findTestObject('ECR/Meeting/TextArea_Meeting'), 10)
-		for (int i = 0; i < List.size(); i++)
-			List[i].sendKeys(GlobalVariable.LongNotes)
-
-
-		WebUI.sendKeys(findTestObject('ECR/Approve-Reject/APPROVE_REJECT_NOTES'), GlobalVariable.LongNotes)
-		WebUI.delay(5)
-		WebUI.scrollToElement(findTestObject('Object Repository/Generic/SUBMIT'),5)
-		CUTILS.clickUsingJS(findTestObject('Generic/SUBMIT'),30)
-		WebUI.delay(5)
-	}
 	@Keyword
 	def scheduleMeeting(){
 		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
@@ -681,12 +663,11 @@ public class ECR {
 	}
 	@Keyword
 
-	def pendingClinic() {
+	def pendingClinic(String Outcome) {
 		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
 		CUTILS.begin()
 		WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
-		WebUI.click(findTestObject('ECR/Meeting/CLINIC_OUTCOME'))
-		WebUI.delay(5)
+		CUTILS.IdentifyLabelField(Outcome)
 		WebUI.setText(findTestObject('ECR/Meeting/OUTCOME_NOTES'), GlobalVariable.LongNotes)
 		WebUI.delay(5)
 		WebUI.scrollToElement(findTestObject('Object Repository/Generic/SUBMIT'),5)

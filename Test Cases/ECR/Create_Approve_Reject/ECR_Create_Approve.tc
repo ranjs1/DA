@@ -110,4 +110,11 @@
       <masked>false</masked>
       <name>DataDrive</name>
    </variable>
+   <variable>
+      <defaultValue>['Lost', 'Won']</defaultValue>
+      <description></description>
+      <id>65fd5abb-d892-4885-9789-20e43377364f</id>
+      <masked>false</masked>
+      <name>DispositionReason</name>
+   </variable>
 </TestCaseEntity>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>FINISH_ASSIGNMENT</name>
+   <name>approvalSummary</name>
    <tag></tag>
-   <elementGuidId>1b7bbcc0-563d-496b-b5b2-851f86862811</elementGuidId>
+   <elementGuidId>15ef7381-506a-4782-bdcd-ef23cd27240b</elementGuidId>
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//button[@data-test-id='2015022606434705791895']</value>
+         <value>//*[contains(.,'Approval/Review Summary') and @class='layout-group-item-title']</value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -17,6 +17,6 @@
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>//button[@data-test-id='2015022606434705791895']</value>
+      <value>//*[contains(.,'Approval/Review Summary') and @class='layout-group-item-title']</value>
    </webElementProperties>
 </WebElementEntity>

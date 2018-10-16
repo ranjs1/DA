@@ -162,7 +162,7 @@ while (GlobalVariable.WOSTATUS.contains('PENDING') && (GlobalVariable.Assignment
 
         CustomKeywords.'com.da.commonutilities.search'()
 
-        CustomKeywords.'com.da.ECR.ContractDisposition'()
+        CustomKeywords.'com.da.ECR.ContractDisposition'(DispositionReason)
 
         not_run: CustomKeywords.'com.da.commonutilities.readWO'(TestCaseno, TestDataFile)
 

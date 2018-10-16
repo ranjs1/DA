@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>FINISH_ASSIGNMENT</name>
+   <name>approverTitle</name>
    <tag></tag>
-   <elementGuidId>1b7bbcc0-563d-496b-b5b2-851f86862811</elementGuidId>
+   <elementGuidId>a08f53d8-6149-44a9-bcba-6860ca4c0a5d</elementGuidId>
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//button[@data-test-id='2015022606434705791895']</value>
+         <value></value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
@@ -15,8 +15,8 @@
    <webElementProperties>
       <isSelected>true</isSelected>
       <matchCondition>equals</matchCondition>
-      <name>xpath</name>
+      <name>data-test-id</name>
       <type>Main</type>
-      <value>//button[@data-test-id='2015022606434705791895']</value>
+      <value>20170202042248015885531</value>
    </webElementProperties>
 </WebElementEntity>

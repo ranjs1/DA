@@ -18,13 +18,15 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUiBuiltInKeywords
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable as GlobalVariable
-import org.openqa.selenium.Keys as Keys
-import com.da.commonutilities as CUTILS
 
-CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.PL)
+CustomKeywords.'com.da.commonutilities.login'(variable)
 
-CustomKeywords.'com.da.BEP.Estimate'('\\Data Files\\BEP\\Estimate.xlsm', GlobalVariable.ORG, GlobalVariable.ACC, GlobalVariable.PL, 
-    GlobalVariable.RD, GlobalVariable.RL, GlobalVariable.PLTL, 'email', '', '', false)
+not_run: CustomKeywords.'com.da.commonutilities.CreateECR'(FileLocation, ORG, ACC, PL, RD, RL, PLTL, DataDrive, TestCaseno, 
+    '\\Data Files\\ECR\\TestDataECR.xlsx', '')
 
-not_run: CustomKeywords.'com.da.commonutilities.searchStatus'()
+CustomKeywords.'com.da.commonutilities.search'()
+
+not_run: WebUI.switchToFrame(findTestObject('Generic/FRAME1'), 5)
+
+CustomKeywords.'com.da.ECR.ContractDisposition'('Create Contract', 'Won')
 

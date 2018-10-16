@@ -6,12 +6,12 @@
    <defaultProfile>true</defaultProfile>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>2</initValue>
+      <initValue>0</initValue>
       <name>delay</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>''</initValue>
+      <initValue>'ECR-23Aug2018-2'</initValue>
       <name>WOID</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
@@ -71,7 +71,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'waink@pegasystems.com'</initValue>
+      <initValue>'ellia@pegasystems.com'</initValue>
       <name>RD</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
@@ -176,7 +176,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>'Software Testing'</initValue>
+      <initValue>'Approval/Review Notes'</initValue>
       <name>LongNotes</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>
@@ -186,7 +186,7 @@
    </GlobalVariableEntity>
    <GlobalVariableEntity>
       <description></description>
-      <initValue>[('Micheal Smith') : 'smitmi@pegasystems.com', ('Baruch Sachs') : 'sachb@pegasystems.com']</initValue>
+      <initValue>[('Michael Smith') : 'smitmi@pegasystems.com', ('Baruch Sachs') : 'sachb@pegasystems.com', (' Eric Panepinto') : 'panee@pegasystems.com', ('Kevin Wainman') : 'waink@pegasystems.com', ('GSOps Team') : 'pogoa@pegasystems.com', (' Andy Elliott') : 'ellia@pegasystems.com', ('Doug Lachman') : 'lachd@pegasystems.com']</initValue>
       <name>NameToID</name>
    </GlobalVariableEntity>
    <GlobalVariableEntity>

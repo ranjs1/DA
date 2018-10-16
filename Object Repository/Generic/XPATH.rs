@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebElementEntity>
    <description></description>
-   <name>FINISH_ASSIGNMENT</name>
+   <name>XPATH</name>
    <tag></tag>
-   <elementGuidId>1b7bbcc0-563d-496b-b5b2-851f86862811</elementGuidId>
+   <elementGuidId>4a2e7217-edf1-4bd6-aed0-cf05e91b696a</elementGuidId>
    <selectorCollection>
       <entry>
          <key>BASIC</key>
-         <value>//button[@data-test-id='2015022606434705791895']</value>
+         <value></value>
       </entry>
    </selectorCollection>
    <selectorMethod>BASIC</selectorMethod>
    <useRalativeImagePath>false</useRalativeImagePath>
    <webElementProperties>
-      <isSelected>true</isSelected>
+      <isSelected>false</isSelected>
       <matchCondition>equals</matchCondition>
       <name>xpath</name>
       <type>Main</type>
-      <value>//button[@data-test-id='2015022606434705791895']</value>
+      <value></value>
    </webElementProperties>
 </WebElementEntity>

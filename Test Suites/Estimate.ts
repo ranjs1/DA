@@ -4,7 +4,7 @@
    <name>Estimate</name>
    <tag></tag>
    <isRerun>false</isRerun>
-   <lastRun>2018-08-28T11:57:42</lastRun>
+   <lastRun>2018-10-09T19:34:39</lastRun>
    <mailRecipient></mailRecipient>
    <numberOfRerun>0</numberOfRerun>
    <pageLoadTimeout>30</pageLoadTimeout>
@@ -14,7 +14,7 @@
    <testCaseLink>
       <guid>87f60034-fb67-4b71-af5c-d3cf905cae8e</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
+      <isRun>false</isRun>
       <testCaseId>Test Cases/BEP/TestCases/TC_CreateBEP_EmailOutput_SendEmail_CreateECR</testCaseId>
    </testCaseLink>
    <testCaseLink>
@@ -26,7 +26,7 @@
    <testCaseLink>
       <guid>49c06a55-9266-42ad-899e-8b27b8f52c7e</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>false</isRun>
+      <isRun>true</isRun>
       <testCaseId>Test Cases/BEP/TestCases/TC_CreateBEP_EmailOutput_SkipEmail_CreateECR</testCaseId>
    </testCaseLink>
    <testCaseLink>
@@ -38,7 +38,7 @@
    <testCaseLink>
       <guid>c29c2784-1fe8-457c-b029-f8a055006319</guid>
       <isReuseDriver>false</isReuseDriver>
-      <isRun>false</isRun>
+      <isRun>true</isRun>
       <testCaseId>Test Cases/BEP/TestCases/TC_Withdraw</testCaseId>
    </testCaseLink>
    <testCaseLink>

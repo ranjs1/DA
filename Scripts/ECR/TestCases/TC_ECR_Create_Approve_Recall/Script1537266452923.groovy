@@ -21,11 +21,12 @@ import internal.GlobalVariable as GlobalVariable
 
 CustomKeywords.'com.da.commonutilities.login'(OPS)
 
-'This will create ECR for given BSW file and the data would be taken from the default values assigned to each variable'
 CustomKeywords.'com.da.ECR.CreateECR'(FileLocation, ORG, ACC, PL, RD, RL, PLTL, DataDrive, TestCaseno, '\\Data Files\\ECR\\TestDataECR.xlsx', 
     '')
 
-'This step is to read the WO status and assignment status needed before entering the while loop'
+'this is for recall'
+CustomKeywords.'com.da.commonutilities.setprop'('')
+
 CustomKeywords.'com.da.commonutilities.searchStatus'()
 
 while (GlobalVariable.WOSTATUS.contains('PENDING') && (GlobalVariable.AssignmentList.size() > 0)) {
@@ -42,44 +43,36 @@ while (GlobalVariable.WOSTATUS.contains('PENDING') && (GlobalVariable.Assignment
 		k++
 		GlobalVariable.Status=GlobalVariable.AssignmentList[k].text*/
     if (GlobalVariable.Status == 'Pending-RDApproval') {
-        if (GlobalVariable.RDReject == false) {
-            if (GlobalVariable.Meeting == true) {
-                CustomKeywords.'com.da.commonutilities.login'(RD)
-
-                CustomKeywords.'com.da.commonutilities.search'()
-
-                CustomKeywords.'com.da.ECR.routeToRL'()
-            } else {
-                CustomKeywords.'com.da.commonutilities.login'(RD)
-
-                CustomKeywords.'com.da.commonutilities.search'()
-
-                CustomKeywords.'com.da.ECR.approve'()
-            }
-        } else {
+        if (GlobalVariable.RDRecall == false) {
             CustomKeywords.'com.da.commonutilities.login'(RD)
 
             CustomKeywords.'com.da.commonutilities.search'()
 
-            CustomKeywords.'com.da.ECR.reject'()
+            CustomKeywords.'com.da.ECR.approve_reject_review'('Approve')
+        } else {
+            CustomKeywords.'com.da.commonutilities.login'(PL)
 
-            GlobalVariable.RDReject = false
+            CustomKeywords.'com.da.commonutilities.search'()
+
+            CustomKeywords.'com.da.ECR.recall'()
+
+            GlobalVariable.RDRecall = false
         }
     } else if (GlobalVariable.Status == 'Pending-RLApproval') {
-        if (GlobalVariable.RLReject == false) {
+        if (GlobalVariable.RLRecall == false) {
             CustomKeywords.'com.da.commonutilities.login'(RL)
 
             CustomKeywords.'com.da.commonutilities.search'()
 
-            CustomKeywords.'com.da.ECR.approve'()
+            CustomKeywords.'com.da.ECR.approve_reject_review'('')
         } else {
-            CustomKeywords.'com.da.commonutilities.login'(RL)
+            CustomKeywords.'com.da.commonutilities.login'(PL)
 
             CustomKeywords.'com.da.commonutilities.search'()
 
-            CustomKeywords.'com.da.ECR.reject'()
+            CustomKeywords.'com.da.ECR.recall'()
 
-            GlobalVariable.RLReject = false
+            GlobalVariable.RLRecall = false
         }
     } else if (GlobalVariable.Status == 'Pending-RDDApproval') {
         if (GlobalVariable.RDD_Reject == false) {
@@ -87,7 +80,7 @@ while (GlobalVariable.WOSTATUS.contains('PENDING') && (GlobalVariable.Assignment
 
             CustomKeywords.'com.da.commonutilities.search'()
 
-            CustomKeywords.'com.da.ECR.approve'()
+            CustomKeywords.'com.da.ECR.approve_reject_review'('Approve')
         } else {
             CustomKeywords.'com.da.commonutilities.login'(RDD)
 
@@ -98,12 +91,12 @@ while (GlobalVariable.WOSTATUS.contains('PENDING') && (GlobalVariable.Assignment
             GlobalVariable.RDD_Reject = false
         }
     } else if (GlobalVariable.Status == 'Pending-OPSApproval') {
-        if (GlobalVariable.OpsReject == false) {
+        if (GlobalVariable.OpsRecall == false) {
             CustomKeywords.'com.da.commonutilities.login'(OPS)
 
             CustomKeywords.'com.da.commonutilities.search'()
 
-            CustomKeywords.'com.da.ECR.gsopsApprove'()
+            CustomKeywords.'com.da.ECR.approve_reject_review'('Approve')
         } else {
             CustomKeywords.'com.da.commonutilities.login'(OPS)
 
@@ -111,7 +104,7 @@ while (GlobalVariable.WOSTATUS.contains('PENDING') && (GlobalVariable.Assignment
 
             CustomKeywords.'com.da.ECR.gsopsReject'()
 
-            GlobalVariable.OpsReject = false
+            GlobalVariable.OpsRecall = false
         }
     } else if (GlobalVariable.Status == 'Pending-ExpSvcApproval') {
         if (GlobalVariable.EXP_SVC_Reject == false) {
@@ -119,7 +112,7 @@ while (GlobalVariable.WOSTATUS.contains('PENDING') && (GlobalVariable.Assignment
 
             CustomKeywords.'com.da.commonutilities.search'()
 
-            CustomKeywords.'com.da.ECR.approve'()
+            CustomKeywords.'com.da.commonutilities.WriteWO'('Approve', '', 0, '')
         } else {
             CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.EXP_SVC)
 
@@ -135,7 +128,7 @@ while (GlobalVariable.WOSTATUS.contains('PENDING') && (GlobalVariable.Assignment
 
             CustomKeywords.'com.da.commonutilities.search'()
 
-            CustomKeywords.'com.da.ECR.approve'()
+            CustomKeywords.'com.da.ECR.approve_reject_review'('Approve')
         } else {
             CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.EXP_SVC)
 
@@ -146,29 +139,19 @@ while (GlobalVariable.WOSTATUS.contains('PENDING') && (GlobalVariable.Assignment
             GlobalVariable.EXP_SVC_Reject = false
         }
     } else if (GlobalVariable.Status == 'Pending-DocUpdate') {
-        if (GlobalVariable.Meeting == false) {
-            CustomKeywords.'com.da.commonutilities.login'(PL)
+        CustomKeywords.'com.da.commonutilities.login'(OPS)
 
-            CustomKeywords.'com.da.commonutilities.search'()
+        CustomKeywords.'com.da.commonutilities.search'()
 
-            CustomKeywords.'com.da.ECR.docUpdate'()
-        } else {
-            CustomKeywords.'com.da.commonutilities.login'(PL)
-
-            CustomKeywords.'com.da.commonutilities.search'()
-
-            CustomKeywords.'com.da.ECR.docUpdateMeeting'()
-        }
+        CustomKeywords.'com.da.ECR.docUpdate'()
     } else if (GlobalVariable.Status == 'Pending-Contract') {
         CustomKeywords.'com.da.commonutilities.login'(PL)
 
         CustomKeywords.'com.da.commonutilities.search'()
 
-        CustomKeywords.'com.da.ECR.ContractDisposition'()
+        CustomKeywords.'com.da.ECR.ContractDisposition'('Create Contract', 'Won')
 
         not_run: CustomKeywords.'com.da.commonutilities.readWO'(TestCaseno, TestDataFile)
-
-        GlobalVariable.WOSTATUS == 'Resolved-won'
     } else if (GlobalVariable.Status == 'Pending-MeetingSchedule') {
         CustomKeywords.'com.da.commonutilities.login'(CLINIC)
 
@@ -180,31 +163,31 @@ while (GlobalVariable.WOSTATUS.contains('PENDING') && (GlobalVariable.Assignment
 
         CustomKeywords.'com.da.commonutilities.search'()
 
-        CustomKeywords.'com.da.ECR.docUpdateMeeting'()
+        CustomKeywords.'com.da.ECR.docUpdate'()
     } else if (GlobalVariable.Status == 'Pending-OPSReview') {
         CustomKeywords.'com.da.commonutilities.login'(OPS)
 
         CustomKeywords.'com.da.commonutilities.search'()
 
-        CustomKeywords.'com.da.ECR.gsopsReview'()
+        CustomKeywords.'com.da.ECR.approve_reject_review'('')
     } else if (GlobalVariable.Status == 'Pending-ExpSvcReview') {
         CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.EXP_SVC)
 
         CustomKeywords.'com.da.commonutilities.search'()
 
-        CustomKeywords.'com.da.ECR.EXPReview_RDDReview_SPReview'()
+        CustomKeywords.'com.da.ECR.approve_reject_review'('')
     } else if (GlobalVariable.Status == 'Pending-SpRevReview') {
         CustomKeywords.'com.da.commonutilities.login'(GlobalVariable.EXP_SVC)
 
         CustomKeywords.'com.da.commonutilities.search'()
 
-        CustomKeywords.'com.da.ECR.EXPReview_RDDReview_SPReview'()
+        CustomKeywords.'com.da.ECR.approve_reject_review'('')
     } else {
         CustomKeywords.'com.da.commonutilities.login'(RD)
 
         CustomKeywords.'com.da.commonutilities.search'()
 
-        CustomKeywords.'com.da.ECR.pendingClinic'()
+        CustomKeywords.'com.da.ECR.pendingClinic'('Approved')
     }
     
     /* }for loop end braces */
